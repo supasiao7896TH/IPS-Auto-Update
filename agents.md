@@ -6,10 +6,10 @@
 ## โครงสร้าง repo
 
 - ไม่มี build step, ไม่มี test suite, ไม่มี `package.json`, ไม่มี CI
-- โค้ดทั้งหมดอยู่ในไฟล์เดียว: **`Kaizen_Tracker07_1.html`** (single-file web app)
+- โค้ดทั้งหมดอยู่ในไฟล์เดียว: **`index.html`** (single-file web app)
 - เปิดไฟล์นี้ตรงในเบราว์เซอร์เพื่อรัน ไม่ต้องติดตั้งอะไรเพิ่ม
 
-## โครงสร้างโค้ดใน `Kaizen_Tracker07_1.html`
+## โครงสร้างโค้ดใน `index.html`
 
 โค้ด JS ทั้งหมดอยู่ใน IIFE เดียว รวมศูนย์ที่ตัวแปร `App`:
 
@@ -59,7 +59,7 @@ localStorage keys: `kaizen_v2_sections`, `kaizen_v2_employees`, `kaizen_v2_activ
 
 ไม่มี automated test — ต้องทดสอบด้วยมือทุกครั้ง:
 
-1. เปิดไฟล์ตรงในเบราว์เซอร์ (`file://.../Kaizen_Tracker07_1.html`) หรือใช้ Chromium ที่ path
+1. เปิดไฟล์ตรงในเบราว์เซอร์ (`file://.../index.html`) หรือใช้ Chromium ที่ path
    `/opt/pw-browsers/chromium` ผ่าน Playwright สำหรับทดสอบแบบ headless
 2. เช็ค browser console ว่าไม่มี error (โดยเฉพาะหลังแก้ JS ในไฟล์)
 3. ทดสอบ flow หลักที่เกี่ยวข้องกับจุดที่แก้ เช่น: บันทึกกิจกรรม → ตารางอัพเดท, import JSON ที่มี record ซ้ำ →

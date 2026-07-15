@@ -45,12 +45,15 @@
 
 ## สถานะปัจจุบัน
 
-`main` มีไฟล์: `README.md`, `Kaizen_Tracker07_1.html`, `context.md`, `agents.md`
+`main` มีไฟล์: `README.md`, `index.html` (เดิมชื่อ `Kaizen_Tracker07_1.html`), `context.md`, `agents.md`
+
+- **branch `claude/fix-podium-ranking-dLuHD` — reconciled แล้ว (2026-07-15)**: ตรวจ diff ทีละฟังก์ชัน
+  (podium SVG chibi/crown/glow/medal, email banner top/bottom split, `zoom:2`, motivation segment,
+  contrast/background สำหรับ screenshot) พบว่างานออกแบบทั้งหมดใน branch นี้ถูกนำเข้า `main` แล้วตั้งแต่ PR #1
+  ในรูปแบบที่ปรับปรุงกว่าเดิม (ใช้ `buildStats`/`makePodiumSvg` แทนโค้ดซ้ำ, แก้ label podium ให้ตรงกับเกณฑ์ YTD)
+  ไม่มีอะไรต้อง port เพิ่ม — branch นี้ถือว่าล้าสมัยและปลอดภัยที่จะลบทิ้ง
 
 ## งานค้าง / สิ่งที่ควรรู้ก่อนพัฒนาต่อ
 
-- branch `claude/fix-podium-ranking-dLuHD` มีงานออกแบบ email banner ที่ยังไม่ได้ merge เข้า `main`
-  และแตกต่างจากโค้ดปัจจุบันพอสมควร (โดยเฉพาะส่วน podium SVG ที่ `main` แยกออกมาเป็น
-  `App.methods.data.makePodiumSvg()` แล้ว) — ถ้าจะดึงงานฝั่งนั้นกลับมาใช้ต้อง reconcile กับโครงสร้างใหม่ก่อน
 - ฟิลด์ `annualTarget` รายบุคคลในข้อมูลพนักงานยังไม่ถูกใช้งานจริง (ผู้ใช้ยืนยันว่าทุกคนใช้เป้าหมายรวมเดียวกัน)
   หากในอนาคตต้องการเปลี่ยนเป็นเป้าหมายรายคน จะต้องแก้จุดคำนวณ % ความคืบหน้าในหลายฟังก์ชัน
