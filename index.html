@@ -136,7 +136,7 @@
     </div>
 
     <div id="modal-container"></div>
-    <script id="data-injector"></script>
+    <script id="data-injector" type="application/json"></script>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -579,9 +579,9 @@
                         const safe = JSON.stringify({sections:App.state.sections,employees:App.state.employees,activities:App.state.activities})
                             .replace(/<\/script>/gi,'<\\/script>');
                         const cur = document.documentElement.outerHTML;
-                        const pat = /<script id="data-injector">[\s\S]*?<\/script>/;
+                        const pat = /<script id="data-injector"[^>]*>[\s\S]*?<\/script>/;
                         if (!pat.test(cur)) { App.methods.ui.showNotification('ไม่พบตำแหน่งฝังข้อมูล','error'); return; }
-                        const blob = new Blob(['<!DOCTYPE html>\n' + cur.replace(pat,`<script id="data-injector">${safe}<\/script>`)],{type:'text/html'});
+                        const blob = new Blob(['<!DOCTYPE html>\n' + cur.replace(pat,`<script id="data-injector" type="application/json">${safe}<\/script>`)],{type:'text/html'});
                         const url  = URL.createObjectURL(blob);
                         const a    = document.createElement('a');
                         a.href=url; a.download=`Kaizen_Tracker_Report_${new Date().toISOString().slice(0,10)}.html`;
