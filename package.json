@@ -10,8 +10,16 @@
     "test:watch": "vitest"
   },
   "devDependencies": {
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.29",
+    "tailwindcss": "^3.4.16",
     "vite": "^6.0.0",
     "vite-plugin-singlefile": "^2.0.3",
     "vitest": "^3.0.0"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.7",
+    "html-to-image": "^1.11.13",
+    "lucide": "^1.28.0"
   }
 }

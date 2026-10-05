@@ -13,9 +13,9 @@
 - Unit test: **Vitest** (`npm test`) — เทสเฉพาะจุดเสี่ยง ไม่ต้อง 100% coverage
 - CI: GitHub Actions (`.github/workflows/ci.yml`) รัน `npm ci && npm run build && npm test` ทุก push/PR เข้า `main`
   — ยังไม่มี deploy job (เพิ่มทีหลังผ่าน `cloudflare-workers-deploy` skill ถ้าต้องการ hosting)
-- `index.html` เหลือแค่ markup/CSS/CDN `<script src>` tags — ไม่มี logic JS อยู่ใน `index.html` แล้ว
-- Third-party libs (Tailwind CDN, Chart.js, Lucide, html-to-image) **ยังโหลดผ่าน CDN `<script>` ใน `index.html` เหมือนเดิม**
-  ไม่ได้ย้ายเป็น npm import — โมดูลที่ใช้ประกาศ `/* global Chart, lucide */` หรือ `/* global lucide, htmlToImage */` กำกับไว้
+- `index.html` เหลือแค่ markup/link Google Fonts — ไม่มี logic JS หรือ CDN `<script>` แล้ว
+- Third-party libs (Tailwind, Chart.js, Lucide, html-to-image) **ติดตั้งผ่าน npm และ bundle ผ่าน Vite**
+  — นำเข้าใน `src/main.js` และ expose ให้ global/window (`window.Chart`, `window.lucide`, `window.htmlToImage`) เพื่อ backward compatibility กับโมดูลทั้งหมด ทำให้แอปและไฟล์ที่ export เป็น Offline 100%
 
 ## โครงสร้าง `src/` — 9 module เดิม, คนละไฟล์
 
@@ -117,8 +117,8 @@ activities = { id, employeeId, year, month, count }   // id เป็น synthet
 5. **CRUD ต้องผ่าน `STATE_STORE.optimisticUpdate(key, next, persistFn)`**: set state ทันที (optimistic) → persist ไป
    IndexedDB → rollback state + แจ้ง error toast อัตโนมัติถ้า persist ล้มเหลว — ห้าม mutate array ใน state แบบ in-place
    ต้อง clone ก่อนเสมอ (`[...arr]`) ไม่งั้น rollback จะ no-op เพราะ `prev` อ้างอิง object เดียวกับที่ถูก mutate ไปแล้ว
-6. **CDN dependencies pin เวอร์ชันแล้ว**: Tailwind `3.4.16`, Chart.js `4.4.7`, Lucide `1.28.0`, html-to-image `1.11.13`
-   — อย่าเปลี่ยนกลับไปใช้ URL แบบไม่ระบุเวอร์ชัน (`@latest` หรือไม่มี version เลย)
+6. **Dependencies ผ่าน NPM**: Tailwind `3.4.16` (PostCSS), Chart.js `4.4.7`, Lucide `1.28.0`, html-to-image `1.11.13`
+   — จัดการผ่าน `package.json` และ bundle เป็น single file ด้วย `vite-plugin-singlefile` ทำให้ใช้งานแบบ Offline 100%
 7. **ไอคอน**: ใช้ Lucide (`data-lucide="icon-name"`) ไม่ใช่ Font Awesome แล้ว — ทุกฟังก์ชันที่ inject `data-lucide`
    markup ผ่าน innerHTML ต้องเรียก `lucide.createIcons()` ต่อท้ายเสมอ (Lucide inject SVG เฉพาะ element ที่มีอยู่ตอนเรียก
    ไม่ใช่ CSS class font แบบ Font Awesome) — ยกเว้น 5 generator ฟังก์ชันใน `UI_RENDERER`

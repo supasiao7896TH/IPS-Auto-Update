@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Noto Sans Thai', sans-serif;
+    background-color: #f0f2f5;
+}
+
+#main-header-title {
+    font-family: 'Fraunces', serif;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    body {
+        background-color: #fff;
+    }
+    .print-container {
+        box-shadow: none !important;
+        border: 1px solid #ddd;
+    }
+    @page {
+        size: A4 landscape;
+        margin: 20px;
+    }
+}

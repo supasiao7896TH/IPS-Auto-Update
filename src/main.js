@@ -1,4 +1,16 @@
-/* global lucide, htmlToImage */
+import './style.css';
+import Chart from 'chart.js/auto';
+import { createIcons, icons } from 'lucide';
+import * as htmlToImage from 'html-to-image';
+
+// Expose libraries globally for seamless backward-compatibility
+window.Chart = Chart;
+window.htmlToImage = htmlToImage;
+window.lucide = {
+    createIcons: (opts) => createIcons({ icons, ...opts }),
+    icons,
+};
+
 import { APP_CONFIG } from './modules/app-config.js';
 import { DEBUG_MODULE } from './modules/debug-module.js';
 import { STATE_STORE } from './modules/state-store.js';
